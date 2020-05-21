@@ -9,6 +9,8 @@ zombie[0] = {
   y: 8 * box,
 };
 
+let direction = "right";
+
 function createBg() {
   context.fillStyle = "#f1f";
 
@@ -22,5 +24,26 @@ function createZombie() {
   }
 }
 
-createBg();
-createZombie();
+function gameStart() {
+  createBg();
+  createZombie();
+
+  let zombieX = zombie[0].x;
+  let zombieY = zombie[0].y;
+
+  if (direction === "right") zombieX += box;
+  if (direction === "left") zombieX -= box;
+  if (direction === "down") zombieY += box;
+  if (direction === "up") zombieY -= box;
+
+  zombie.pop();
+
+  let newZombie = {
+    x: zombieX,
+    y: zombieY,
+  };
+
+  zombie.unshift(newZombie);
+}
+
+let game = setInterval(gameStart, 100);
