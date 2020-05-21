@@ -11,6 +11,11 @@ zombie[0] = {
 
 let direction = "right";
 
+let corpse = {
+  x: Math.floor(Math.random() * 15 + 1) * box,
+  y: Math.floor(Math.random() * 15 + 1) * box,
+};
+
 function createBg() {
   context.fillStyle = "#f1f";
 
@@ -22,6 +27,11 @@ function createZombie() {
     context.fillStyle = "green";
     context.fillRect(zombie[i].x, zombie[i].y, box, box);
   }
+}
+
+function drawCorpse() {
+  context.fillStyle = "red";
+  context.fillRect(corpse.x, corpse.y, box, box);
 }
 
 document.addEventListener("keydown", update);
@@ -41,6 +51,7 @@ function gameStart() {
 
   createBg();
   createZombie();
+  drawCorpse();
 
   let zombieX = zombie[0].x;
   let zombieY = zombie[0].y;
