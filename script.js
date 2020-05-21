@@ -24,7 +24,21 @@ function createZombie() {
   }
 }
 
+document.addEventListener("keydown", update);
+
+function update() {
+  if (event.keyCode === 37 && direction !== "right") direction = "left";
+  if (event.keyCode === 38 && direction !== "down") direction = "up";
+  if (event.keyCode === 39 && direction !== "left") direction = "right";
+  if (event.keyCode === 40 && direction !== "up") direction = "down";
+}
+
 function gameStart() {
+  if (zombie[0].x > 15 * box && direction === "right") zombie[0].x = 0;
+  if (zombie[0].x < 0 && direction === "left") zombie[0].x = 16 * box;
+  if (zombie[0].y > 15 * box && direction === "down") zombie[0].y = 0;
+  if (zombie[0].y < 0 && direction === "up") zombie[0].y = 16 * box;
+
   createBg();
   createZombie();
 
