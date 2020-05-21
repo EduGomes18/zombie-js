@@ -6,6 +6,7 @@ let zombie = [];
 
 zombie[0] = {
   x: 8 * box,
+  y: 8 * box,
 };
 
 function createBg() {
@@ -14,6 +15,12 @@ function createBg() {
   context.fillRect(0, 0, 16 * box, 16 * box);
 }
 
-function createZombie() {}
+function createZombie() {
+  for (i = 0; i < zombie.length; i++) {
+    context.fillStyle = "green";
+    context.fillRect(zombie[i].x, zombie[i].y, box, box);
+  }
+}
 
 createBg();
+createZombie();
