@@ -61,6 +61,13 @@ function gameStart() {
   if (direction === "down") zombieY += box;
   if (direction === "up") zombieY -= box;
 
+  if (zombieX !== corpse.x || zombieY !== corpse.y) {
+    zombie.pop();
+  } else {
+    corpse.x = Math.floor(Math.random() * 15 + 1) * box;
+    corpse.y = Math.floor(Math.random() * 15 + 1) * box;
+  }
+
   zombie.pop();
 
   let newZombie = {
