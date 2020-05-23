@@ -16,8 +16,8 @@ zombie[0] = {
 let zombieTest = [];
 
 zombieTest[0] = {
-  x: 8 * box,
-  y: 8 * box,
+  x: 10 * box,
+  y: 10 * box,
 };
 
 let direction = "right";
@@ -29,10 +29,10 @@ let corpse = {
 
 let srcX;
 let srcY;
-let sheetWidth = 336;
-let sheetHeight = 44;
+let sheetWidth = 210;
+let sheetHeight = 42;
 
-let cols = 8;
+let cols = 4;
 let rows = 1;
 
 let framWidth = sheetWidth / cols;
@@ -46,26 +46,37 @@ let currentFrame = 0;
  **/
 
 let newZombie = new Image();
-newZombie.src = "zombie.png";
+newZombie.src = "zombie_01.png";
 
 function updateFrame(x, y) {
   currentFrame = ++currentFrame % cols;
-
   srcX = currentFrame * framWidth;
   srcY = 0;
 
-  // mapContext.clearRect(x, y, framWidth, framHeight);
+  mapContext.clearRect(0, 0, framWidth, framHeight);
+}
 
-  // console.log(x, y);
+function timer(ms) {
+  return new Promise((res) => setTimeout(res, ms));
 }
 
 function drawZombie() {
-  for (i = 0; i < zombieTest.length; i++) {
-    let zombiePosX = zombieTest[i].x - 42;
-    let zombiePosY = zombieTest[i].y;
+  let i = 0;
+  do {
+    task(i);
+    i++;
+  } while (i < zombieTest.lenght && zombieTest[0].x !== zombieTest[i].x);
+}
 
-    updateFrame(zombiePosX, zombiePosY);
+// function drawZombie() {
+//   for (let i = 0; i < zombieTest.length; i++) {
+//     task(i);
+//   }
+// }
 
+function task(i) {
+  setTimeout(function () {
+    updateFrame(zombieTest[i].x - 22, zombieTest[i].y - 64);
     mapContext.drawImage(
       newZombie,
       srcX,
@@ -77,9 +88,7 @@ function drawZombie() {
       framWidth,
       framHeight
     );
-
-    // console.log(zombiePosX, zombiePosY);
-  }
+  }, i * 10000);
 }
 
 function createBg() {
@@ -114,10 +123,10 @@ function gameStart() {
   if (zombie[0].y > 15 * box && direction === "down") zombie[0].y = 0;
   if (zombie[0].y < 0 && direction === "up") zombie[0].y = 16 * box;
 
-  if (zombieTest[0].x > 15 * box && direction === "right") zombieTest[0].x = 0;
-  if (zombieTest[0].x < 0 && direction === "left") zombieTest[0].x = 16 * box;
-  if (zombieTest[0].y > 15 * box && direction === "down") zombieTest[0].y = 0;
-  if (zombieTest[0].y < 0 && direction === "up") zombieTest[0].y = 16 * box;
+  // if (zombieTest[0].x > 15 * box && direction === "right") zombieTest[0].x = 0;
+  // if (zombieTest[0].x < 0 && direction === "left") zombieTest[0].x = 16 * box;
+  // if (zombieTest[0].y > 15 * box && direction === "down") zombieTest[0].y = 0;
+  // if (zombieTest[0].y < 0 && direction === "up") zombieTest[0].y = 16 * box;
 
   // for (i = 1; i < zombie.length; i++) {
   //   if (zombie[0].x === zombie[i].x && zombie[0].y === zombie[i].y) {
@@ -142,10 +151,10 @@ function gameStart() {
   if (direction === "down") zombieY += box;
   if (direction === "up") zombieY -= box;
 
-  if (direction === "right") zombieXTeste += box;
-  if (direction === "left") zombieXTeste -= box;
-  if (direction === "down") zombieYTeste += box;
-  if (direction === "up") zombieYTeste -= box;
+  // if (direction === "right") zombieXTeste += box;
+  // if (direction === "left") zombieXTeste -= box;
+  // if (direction === "down") zombieYTeste += box;
+  // if (direction === "up") zombieYTeste -= box;
 
   // if (zombieX !== corpse.x || zombieY !== corpse.y) {
   //   zombie.pop();
@@ -153,6 +162,15 @@ function gameStart() {
   //   corpse.x = Math.floor(Math.random() * 15 + 1) * box;
   //   corpse.y = Math.floor(Math.random() * 15 + 1) * box;
   // }
+
+  // if (zombieXTeste !== corpse.x || zombieYTeste !== corpse.y) {
+  //   zombieTest.pop();
+  // } else {
+  //   corpse.x = Math.floor(Math.random() * 15 + 1) * box;
+  //   corpse.y = Math.floor(Math.random() * 15 + 1) * box;
+  // }
+
+  // zombieTest.pop();
 
   let newZombie = {
     x: zombieX,
@@ -165,7 +183,8 @@ function gameStart() {
   };
 
   zombie.unshift(newZombie);
-  zombieTest.unshift(newZombieTeste);
+
+  // zombieTest.unshift(newZombieTeste);
 }
 
 let game = setInterval(gameStart, 100);
